@@ -10,7 +10,7 @@ namespace Challenge2Team8.Models
     public class RatingObject
     {
         [JsonProperty(PropertyName = "id")]
-        public string Id { get; set; }
+        public string id { get; set; }
         [JsonProperty(PropertyName = "userId")]
         public string UserId { get; set; }
         [JsonProperty(PropertyName = "productId")]
