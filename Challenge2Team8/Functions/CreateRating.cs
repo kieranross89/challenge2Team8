@@ -42,6 +42,8 @@ namespace Challenge2Team8.Functions
                     return req.CreateResponse(HttpStatusCode.NotFound, "ProductId not Found");
                 }
 
+                if(ratingToAdd.Rating>5 || ratingToAdd.Rating <0) return req.CreateResponse(HttpStatusCode.BadRequest, "Rating should be within 1-5");
+
 
             }
 
