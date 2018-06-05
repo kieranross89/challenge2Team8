@@ -1,35 +1,33 @@
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
+using System.Net;
+using System.Net.Http;
 
-namespace Challenge2Team8.Functions
+namespace CosmosDBSamplesV1
 {
     public static class GetRating
     {
         [FunctionName("GetRating")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
+        public static HttpResponseMessage Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req,
+            [DocumentDB(
+                databaseName: "icecream",
+                collectionName: "icecreamcoll",
+                ConnectionStringSetting = "dbConn",
+                Id = "{Query.id}")] Challenge2Team8.Models.RatingObject ratingObject,
+            TraceWriter log)
         {
             log.Info("C# HTTP trigger function processed a request.");
-
-            // parse query parameter
-            string name = req.GetQueryNameValuePairs()
-                .FirstOrDefault(q => string.Compare(q.Key, "name", true) == 0)
-                .Value;
-
-            if (name == null)
+            if (ratingObject == null)
             {
-                // Get request body
-                dynamic data = await req.Content.ReadAsAsync<object>();
-                name = data?.name;
+                log.Info($"Rating Object not found");
             }
-
-            return name == null
-                ? req.CreateResponse(HttpStatusCode.BadRequest, "Please pass a name on the query string or in the request body")
-                : req.CreateResponse(HttpStatusCode.OK, "Hello " + name);
+            else
+            {
+                log.Info($"Found Rating Object, Description={ratingObject.Id}");
+            }
+            return req.CreateResponse(HttpStatusCode.OK,ratingObject);
         }
     }
 }
