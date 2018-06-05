@@ -2,6 +2,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Challenge2Team8.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
@@ -15,21 +16,28 @@ namespace Challenge2Team8.Functions
         {
             log.Info("C# HTTP trigger function processed a request.");
 
-            // parse query parameter
-            string name = req.GetQueryNameValuePairs()
-                .FirstOrDefault(q => string.Compare(q.Key, "name", true) == 0)
-                .Value;
+            var data = await req.Content.ReadAsAsync<RatingObject>();
 
-            if (name == null)
+            if (data.UserId == null || data.ProductId == null)
             {
-                // Get request body
-                dynamic data = await req.Content.ReadAsAsync<object>();
-                name = data?.name;
+                return req.CreateResponse(HttpStatusCode.BadRequest, "Please provide userId and productId");
             }
 
-            return name == null
-                ? req.CreateResponse(HttpStatusCode.BadRequest, "Please pass a name on the query string or in the request body")
-                : req.CreateResponse(HttpStatusCode.OK, "Hello " + name);
+            using (var client = new HttpClient())
+            {
+                var userValidationResult =
+                    await client.GetAsync($"https://serverlessohlondonuser.azurewebsites.net/api/GetUser?userId={data.UserId}");
+
+                var productValidationResult = 
+                    await client.GetAsync($"https://serverlessohlondonproduct.azurewebsites.net/api/GetProduct?productId={data.ProductId}");
+
+                if (!userValidationResult.IsSuccessStatusCode || !productValidationResult.IsSuccessStatusCode)
+                {
+                    return req.CreateResponse(HttpStatusCode.BadRequest, "Validation Failure");
+                }
+            }
+
+            return req.CreateResponse(HttpStatusCode.OK, "Validation Success");
         }
     }
 }
