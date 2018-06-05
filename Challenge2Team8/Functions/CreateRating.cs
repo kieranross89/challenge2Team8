@@ -17,29 +17,54 @@ namespace Challenge2Team8.Functions
         {
             log.Info("C# HTTP trigger function processed a request.");
 
-            // parse query parameter
-            string name = req.GetQueryNameValuePairs()
-                .FirstOrDefault(q => string.Compare(q.Key, "name", true) == 0)
-                .Value;
+            var ratingToAdd = await req.Content.ReadAsAsync<RatingObject>();
 
-            RatingObject ratingToAdd = new RatingObject { ProductId = "4c25613a-a3c2-4ef3-8e02-9c335eb23204", LocationName = "Sample ice cream shop", Rating = 5, UserId = "cc20a6fb-a91f-4192-874d-132493685376", UserNotes = "I love the subtle notes of orange in this ice cream!" };
-            ratingToAdd.id = Guid.NewGuid().ToString();
-
-            await document.AddAsync(ratingToAdd);
-            
-
-            if (name == null)
+            if (ratingToAdd.UserId == null || ratingToAdd.ProductId == null)
             {
-                // Get request body
-                dynamic data = await req.Content.ReadAsAsync<object>();
-                name = data?.name;
+                return req.CreateResponse(HttpStatusCode.BadRequest, "Please provide userId and productId");
             }
+
+            using (var client = new HttpClient())
+            {
+                var userValidationResult =
+                    await client.GetAsync($"https://serverlessohlondonuser.azurewebsites.net/api/GetUser?userId={ratingToAdd.UserId}");
+
+                var productValidationResult =
+                    await client.GetAsync($"https://serverlessohlondonproduct.azurewebsites.net/api/GetProduct?productId={ratingToAdd.ProductId}");
+
+                if (!userValidationResult.IsSuccessStatusCode )
+                {
+                    return req.CreateResponse(HttpStatusCode.NotFound, "UserId not Found");
+                }
+
+                if (!productValidationResult.IsSuccessStatusCode)
+                {
+                    return req.CreateResponse(HttpStatusCode.NotFound, "ProductId not Found");
+                }
+
+
+            }
+
+            ratingToAdd.id = Guid.NewGuid().ToString();
+            ratingToAdd.Timestamp = DateTime.Now.ToString();
+
+            try
+            {
+                await document.AddAsync(ratingToAdd);
+                return req.CreateResponse(HttpStatusCode.OK, ratingToAdd);
+            }
+            catch (Exception e)
+            {
+                return req.CreateResponse(HttpStatusCode.BadRequest, $"Adding record failed. Error:{e.ToString()}");
+            }
+
+
 
             //return name == null
             //    ? req.CreateResponse(HttpStatusCode.BadRequest, "Please pass a name on the query string or in the request body")
             //    : req.CreateResponse(HttpStatusCode.OK, ratingToAdd);
 
-            return req.CreateResponse(HttpStatusCode.OK, ratingToAdd);
+            
         }
     }
 }
