@@ -15,7 +15,7 @@ namespace CosmosDBSamplesV1
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "GetRatings/{userId}")]HttpRequestMessage req,
           [DocumentDB( databaseName: "icecream",
                 collectionName: "icecreamcoll",
-                ConnectionStringSetting = "dbConn",
+                ConnectionStringSetting = "CosmosDB",
                 SqlQuery = "SELECT * FROM c where c.UserId={userId}")] IEnumerable<RatingObject> ratingObjects, TraceWriter log)
         {
             log.Info("C# HTTP trigger function processed a request.");
