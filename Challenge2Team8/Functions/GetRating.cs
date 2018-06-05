@@ -14,7 +14,7 @@ namespace CosmosDBSamplesV1
             [DocumentDB(
                 databaseName: "icecream",
                 collectionName: "icecreamcoll",
-                ConnectionStringSetting = "dbConn",
+                ConnectionStringSetting = "CosmosDB",
                 Id = "{Query.id}")] Challenge2Team8.Models.RatingObject ratingObject,
             TraceWriter log)
         {
