@@ -16,7 +16,7 @@ namespace CosmosDBSamplesV1
           [DocumentDB( databaseName: "icecream",
                 collectionName: "icecreamcoll",
                 ConnectionStringSetting = "dbConn",
-                SqlQuery = "SELECT top 3 * FROM c where c.UserId={userId}")] IEnumerable<RatingObject> ratingObjects, TraceWriter log)
+                SqlQuery = "SELECT * FROM c where c.UserId={userId}")] IEnumerable<RatingObject> ratingObjects, TraceWriter log)
         {
             log.Info("C# HTTP trigger function processed a request.");
             if (ratingObjects.ToString() == "[]")
