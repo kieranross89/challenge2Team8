@@ -20,7 +20,7 @@
         "methods": [ "GET" ],
         "route": "/api/getratingsstg"
       },
-      "backendUri": "https://ratingsfunctionappstaging.azurewebsites.net/api/GetRatings"
+      "backendUri": "https://ratingsfunctionappstaging.azurewebsites.net/api/GetRatings" 
     }
   }
 }
