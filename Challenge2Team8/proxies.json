@@ -1,0 +1,12 @@
+﻿{
+  "$schema": "http://json.schemastore.org/proxies",
+  "proxies": {
+    "createrating": {
+      "matchCondition": {
+        "methods": [ "POST" ],
+        "route": "/api/createrating"
+      },
+      "backendUri": "https://ratingsfunctionapp.azurewebsites.net/api/CreateRating"
+    }
+  }
+}
