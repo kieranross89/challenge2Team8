@@ -18,6 +18,7 @@ namespace CosmosDBSamplesV1
                 Id = "{Query.id}")] Challenge2Team8.Models.RatingObject ratingObject,
             TraceWriter log)
         {
+            //good bit of logging
             log.Info("C# HTTP trigger function processed a request.");
             if (ratingObject == null)
             {
