@@ -1,27 +1,6 @@
 ﻿{
   "$schema": "http://json.schemastore.org/proxies",
   "proxies": {
-    "createrating": {
-      "matchCondition": {
-        "methods": [ "POST" ],
-        "route": "/api/proxy/createrating"
-      },
-      "backendUri": "https://ratingsfunctionapp.azurewebsites.net/api/CreateRating"
-    },
-    "getrating": {
-      "matchCondition": {
-        "methods": [ "GET" ],
-        "route": "/api/proxy/getrating"
-      },
-      "backendUri": "https://ratingsfunctionapp.azurewebsites.net/api/GetRating"
-    },
-    "getratings": {
-      "matchCondition": {
-        "methods": [ "GET" ],
-        "route": "/api/proxy/getratings"
-      },
-      "backendUri": "https://ratingsfunctionapp.azurewebsites.net/api/GetRatings"
-    },
     "getuser": {
       "matchCondition": {
         "methods": [ "GET" ],
