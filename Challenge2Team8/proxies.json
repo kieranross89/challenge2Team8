@@ -4,21 +4,21 @@
     "getuser": {
       "matchCondition": {
         "methods": [ "GET" ],
-        "route": "/api/proxy/getuser"
+        "route": "/api/getuser"
       },
       "backendUri": "https://serverlessohlondonuser.azurewebsites.net/api/GetUser"
     },
     "getproduct": {
       "matchCondition": {
         "methods": [ "GET" ],
-        "route": "/api/proxy/getproduct"
+        "route": "/api/getproduct"
       },
       "backendUri": "https://serverlessohlondonproduct.azurewebsites.net/api/GetProduct"
     },
     "getproducts": {
       "matchCondition": {
         "methods": [ "GET" ],
-        "route": "/api/proxy/getproducts"
+        "route": "/api/getproducts"
       },
       "backendUri": "https://serverlessohlondonproduct.azurewebsites.net/api/GetProducts"
     }
