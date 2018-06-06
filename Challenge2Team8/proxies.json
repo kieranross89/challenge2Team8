@@ -6,21 +6,21 @@
         "methods": [ "POST" ],
         "route": "/api/proxy/createrating"
       },
-      "backendUri": "https://ratingsfunctionappstaging.azurewebsites.net/api/CreateRating"
+      "backendUri": "https://ratingsfunctionapp.azurewebsites.net/api/CreateRating"
     },
     "getrating": {
       "matchCondition": {
         "methods": [ "GET" ],
         "route": "/api/proxy/getrating"
       },
-      "backendUri": "https://ratingsfunctionappstaging.azurewebsites.net/api/GetRating"
+      "backendUri": "https://ratingsfunctionapp.azurewebsites.net/api/GetRating"
     },
     "getratings": {
       "matchCondition": {
         "methods": [ "GET" ],
         "route": "/api/proxy/getratings"
       },
-      "backendUri": "https://ratingsfunctionappstaging.azurewebsites.net/api/GetRatings"
+      "backendUri": "https://ratingsfunctionapp.azurewebsites.net/api/GetRatings"
     },
     "getuser": {
       "matchCondition": {
