@@ -4,9 +4,9 @@
     "createrating": {
       "matchCondition": {
         "methods": [ "POST" ],
-        "route": "/api/createrating"
+        "route": "/api/createratingstg"
       },
-      "backendUri": "https://ratingsfunctionapp.azurewebsites.net/api/CreateRating"
+      "backendUri": "https://ratingsfunctionappstaging.azurewebsites.net/api/CreateRating"
     }
   }
 }
