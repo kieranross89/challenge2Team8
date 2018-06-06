@@ -4,42 +4,42 @@
     "createrating": {
       "matchCondition": {
         "methods": [ "POST" ],
-        "route": "/api/createrating"
+        "route": "/api/proxy/createrating"
       },
       "backendUri": "https://ratingsfunctionappstaging.azurewebsites.net/api/CreateRating"
     },
     "getrating": {
       "matchCondition": {
         "methods": [ "GET" ],
-        "route": "/api/getrating"
+        "route": "/api/proxy/getrating"
       },
       "backendUri": "https://ratingsfunctionappstaging.azurewebsites.net/api/GetRating"
     },
     "getratings": {
       "matchCondition": {
         "methods": [ "GET" ],
-        "route": "/api/getratings"
+        "route": "/api/proxy/getratings"
       },
       "backendUri": "https://ratingsfunctionappstaging.azurewebsites.net/api/GetRatings"
     },
     "getuser": {
       "matchCondition": {
         "methods": [ "GET" ],
-        "route": "/api/getuser"
+        "route": "/api/proxy/getuser"
       },
       "backendUri": "https://serverlessohlondonuser.azurewebsites.net/api/GetUser"
     },
     "getproduct": {
       "matchCondition": {
         "methods": [ "GET" ],
-        "route": "/api/getproduct"
+        "route": "/api/proxy/getproduct"
       },
       "backendUri": "https://serverlessohlondonproduct.azurewebsites.net/api/GetProduct"
     },
     "getproducts": {
       "matchCondition": {
         "methods": [ "GET" ],
-        "route": "/api/getproducts"
+        "route": "/api/proxy/getproducts"
       },
       "backendUri": "https://serverlessohlondonproduct.azurewebsites.net/api/GetProducts"
     }
