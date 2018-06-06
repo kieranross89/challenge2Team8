@@ -13,9 +13,8 @@ namespace Challenge2Team8.Functions
     public static class CreateRating
     {
         [FunctionName("CreateRating")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req, [DocumentDB("icecream", "icecreamcoll", Id = "id", ConnectionStringSetting = "CosmosDB")]IAsyncCollector<RatingObject> document,  TraceWriter log)
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)]HttpRequestMessage req, [DocumentDB("icecream", "icecreamcoll", Id = "id", ConnectionStringSetting = "CosmosDB")]IAsyncCollector<RatingObject> document,  TraceWriter log)
         {
-            //a comment
             log.Info("C# HTTP trigger function processed a request.");
 
             var ratingToAdd = await req.Content.ReadAsAsync<RatingObject>();
